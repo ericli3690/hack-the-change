@@ -34,9 +34,7 @@ export default function Home() {
   return (
     <main className="bg-gray-100 flex flex-col min-h-screen">
       <Navbar />
-      <ThirdShell>
-        {screenComponent()}
-      </ThirdShell>
+      
       <div className="flex flex-row m-2">
         <NavButton className="hover:pr-32 bg-gradient-to-r from-lime-200 to-green-200" clickFunc={() => {
           changeScreen(false);
@@ -49,6 +47,9 @@ export default function Home() {
           <svg className="p-3 mr-2" fill="#16a34a" xmlns="http://www.w3.org/2000/svg" height="4em" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
         </NavButton>
       </div>
+      <ThirdShell>
+        {screenComponent()}
+      </ThirdShell>
     </main>
   )
 }
