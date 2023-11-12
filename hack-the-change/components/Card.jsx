@@ -12,7 +12,7 @@ const Card = ({ plantData }) => {
           <h3 className="text-xs">Plant: {plantData.plant}</h3>
           <h3 className="text-xs">Height: {plantData.height}cm</h3>
           <h3 className="text-xs">Planting Date: {plantData.date}</h3>
-          <h3 className="text-xs">Age: {plantData.age} days</h3>
+          {/* <h3 className="text-xs">Age: {plantData.age} days</h3> */}
           <h3 className="text-xs">Owner: {plantData.owner}</h3>
         </div>
       </div>
