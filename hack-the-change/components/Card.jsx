@@ -2,7 +2,7 @@ import React from 'react'
 
 const Card = ({ plantData }) => {
   return (
-    <div className="bg-stone-300 text-stone-600 p-2 mb-2">
+    <div className="bg-stone-300 text-stone-600 p-2 mb-2 rounded-md">
       <div className="flex flex-row ">
         {/* left-right */}
         <img className="w-24 mr-2 border-2 border-gray-100" src="tomato.png" />
