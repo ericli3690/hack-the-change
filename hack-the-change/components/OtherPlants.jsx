@@ -32,7 +32,7 @@ const OtherPlants = () => {
         ? // loaded
 
         plantsData.map((plantData, i) => {
-          return <Card plantData={plantData} key={i} />
+          return <Card plantData={plantData} canSwap={true} key={i} />
         })
 
         : // hasnt loaded yet

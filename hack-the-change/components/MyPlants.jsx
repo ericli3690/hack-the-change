@@ -16,23 +16,25 @@ const db = getDatabase(app);
 
 const MyPlants = () => {
 
-  const [signedIn, setSignedIn] = useState(false);
+  const [user, setUser] = useState(null);
   const [openHandled, setOpenHandled] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged(user => {
-      console.log("eyup");
-      user ? setSignedIn(true) : setSignedIn(false);
-      const plantsRef = ref(db, "/");
-      onValue(plantsRef, (snapshot) => {
-        snapshot.val().forEach(v => {
-          console.log(user.displayName);
-          (v.owner == user.displayName) && setPlantData(v);
-        })
-      })
-      setOpenHandled(true);
+      user && setUser(user);
     });
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    const plantsRef = ref(db, "/");
+    onValue(plantsRef, (snapshot) => {
+      snapshot.val().forEach(v => {
+        (v.owner == user.displayName) && setPlantData(v);
+      })
+    })
+    setOpenHandled(true);
+  }, [user])
 
   const [plantData, setPlantData] = useState({});
 
@@ -50,7 +52,7 @@ const MyPlants = () => {
   const updateDynamics = (_height) => {
     setPlantData({
       ...plantData,
-      height: _height,
+      height: Math.round(_height),
       // age: (Math.round((new Date() - new Date(plantData.date))/(24 * 60 * 60 * 1000))).toString()
     });
   }
@@ -63,15 +65,15 @@ const MyPlants = () => {
     <>
       <h2 className="text-center text-xl font-semibold mb-2">My Plants</h2>
       {
-        signedIn
+        user
 
         ?
 
-        <Card plantData={plantData} />
+        <Card plantData={plantData} canSwap={false} />
 
         :
 
-        <div onClick={() => {
+        <div className="text-center font-semibold bg-lime-200 rounded-md p-2" onClick={() => {
           signInWithPopup(auth, provider);
         }}>Sign In</div>
       }

@@ -55,11 +55,11 @@ for i in range(1, len(contours)):
 
 
     #first rectangle is reference material, ratios set
-    if highestRect > rectangle[i][1]:
-        highestRect = rectangle[i][1]
+    if rect_high > rectangle[i][1]:
+        rect_high = rectangle[i][1]
 
-    if lowestRect < (rectangle[i][1] + rectangle[i][3]):
-        lowestRect = (rectangle[i][1] + rectangle[i][3])
+    if rect_low < (rectangle[i][1] + rectangle[i][3]):
+        rect_low = (rectangle[i][1] + rectangle[i][3])
 
 
     #create bounding box
