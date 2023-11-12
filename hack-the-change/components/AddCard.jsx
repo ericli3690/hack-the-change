@@ -39,7 +39,11 @@ const AddCard = ({ userObj, intermediary }) => {
               height: "[Loading...]",
               email: userObj.email,
               date: new Date().toISOString().split("T")[0],
-              iid: newRef.key
+              iid: newRef.key,
+              request: {
+                name: "",
+                email: ""
+              }
           });
           intermediary();
         }} className="p-2 w-8 transition-all hover:bg-green-200 hover:cursor-pointer rounded-3xl bg-lime-200 flex flex-col justify-center">

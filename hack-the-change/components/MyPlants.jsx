@@ -59,15 +59,11 @@ const MyPlants = () => {
       setPlantsData(checkout);
       setTimeout(() => {
         pushBack(checkout);
-      }, 2000);
+      }, 5000);
       // pushBack(checkout);
-      console.log(checkout); // TODO: write it back
+      // console.log(checkout);
     });
   }, [intermediatePlantsData]);
-
-  useEffect(() => {
-
-  }, )
 
   const getData = (endpoint, callback) => {
     const request = new XMLHttpRequest();
@@ -88,29 +84,36 @@ const MyPlants = () => {
 
         ?
 
-        <>
-          {
-            plantsData.length
+        // <>
+        //   {
+        //     user
     
-            ?
+        //     ?
     
-            <>
-              {plantsData.map((plantData, i) => {
-                return <Card plantData={plantData} canSwap={false} key={i} />
-              })}
-              <AddCard userObj={user} intermediary={() => {setNewAdded(newAdded+1)}} />
-            </>
+        //     <>
+        //       {plantsData.map((plantData, i) => {
+        //         return <Card plantData={plantData} canSwap={false} key={i} />
+        //       })}
+        //       <AddCard userObj={user} intermediary={() => {setNewAdded(newAdded+1)}} />
+        //     </>
             
     
-            :
+        //     :
     
-            <p className="text-black text-center">Loading...</p>
-          }
+        //     <p className="text-black text-center">Loading...</p>
+        //   }
+        // </>
+
+        <>
+          {plantsData.map((plantData, i) => {
+            return <Card plantData={plantData} canSwap={false} intermediary={() => {setNewAdded(newAdded+1)}} key={i} />
+          })}
+          <AddCard userObj={user} intermediary={() => {setNewAdded(newAdded+1)}} />
         </>
 
         :
 
-        <div className="text-center font-semibold bg-lime-200 rounded-md p-2" onClick={() => {
+        <div className="hover:cursor-pointer text-center font-semibold bg-lime-200 rounded-md p-2" onClick={() => {
           signInWithPopup(auth, provider);
         }}>Sign In</div>
 
