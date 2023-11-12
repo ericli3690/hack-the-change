@@ -84,13 +84,13 @@ const MyPlants = () => {
     <>
       <h2 className="text-center text-xl font-semibold mb-2">My Plants</h2>
       {
-        plantsData.length
+        user
 
         ?
 
         <>
           {
-            user
+            plantsData.length
     
             ?
     
@@ -104,15 +104,16 @@ const MyPlants = () => {
     
             :
     
-            <div className="text-center font-semibold bg-lime-200 rounded-md p-2" onClick={() => {
-              signInWithPopup(auth, provider);
-            }}>Sign In</div>
+            <p className="text-black text-center">Loading...</p>
           }
         </>
 
         :
 
-        <p className="text-black text-center">Loading...</p>
+        <div className="text-center font-semibold bg-lime-200 rounded-md p-2" onClick={() => {
+          signInWithPopup(auth, provider);
+        }}>Sign In</div>
+
       }
     </>
   )
