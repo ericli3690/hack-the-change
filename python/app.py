@@ -11,7 +11,7 @@ import cv2
 import imutils.contours
 import argparse
 
-image = img = cv2.imread("plants.jpg")
+image = img = cv2.imread("module.jpeg")
 
 
 parse = argparse.ArgumentParser(description='height measurement')

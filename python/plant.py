@@ -1,10 +1,11 @@
 import cv2
 import imutils.contours
 import argparse
+
 from matplotlib import pyplot as plt
 import numpy
 
-image = img = cv2.imread("img.jpg")
+image = img = cv2.imread("final.jpg")
 
 # Get our options
 parser = argparse.ArgumentParser(description='Object height measurement')
