@@ -11,7 +11,7 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-import { getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, onValue, ref, set } from "firebase/database";
 import AddCard from './AddCard';
 const db = getDatabase(app);
 
@@ -40,9 +40,16 @@ const MyPlants = () => {
     })
   }, [user, newAdded]);
 
+  const pushBack = (specificPlantsData) => {
+    specificPlantsData.forEach((plantData) => {
+      set(ref(db, plantData.iid.toString()), {
+        ...plantData
+      });
+    });
+  }
 
   useEffect(() => {
-    if (!intermediatePlantsData) return;
+    if (!intermediatePlantsData.length) return;
     getData("http://localhost:8000", (_height) => {
       let checkout = intermediatePlantsData;
       checkout.forEach((plantData, i) => {
@@ -50,7 +57,11 @@ const MyPlants = () => {
       })
       // age: (Math.round((new Date() - new Date(plantData.date))/(24 * 60 * 60 * 1000))).toString()
       setPlantsData(checkout);
-      console.log(checkout); // TODO: write it back
+      setTimeout(() => {
+        pushBack(checkout);
+      }, 5000);
+      // pushBack(checkout);
+      // console.log(checkout);
     });
   }, [intermediatePlantsData]);
 
@@ -69,35 +80,43 @@ const MyPlants = () => {
     <>
       <h2 className="text-center text-xl font-semibold mb-2">My Plants</h2>
       {
-        plantsData.length
+        user
 
         ?
 
-        <>
-          {
-            user
+        // <>
+        //   {
+        //     user
     
-            ?
+        //     ?
     
-            <>
-              {plantsData.map((plantData, i) => {
-                return <Card plantData={plantData} canSwap={false} key={i} />
-              })}
-              <AddCard userObj={user} intermediary={() => {setNewAdded(newAdded+1)}} />
-            </>
+        //     <>
+        //       {plantsData.map((plantData, i) => {
+        //         return <Card plantData={plantData} canSwap={false} key={i} />
+        //       })}
+        //       <AddCard userObj={user} intermediary={() => {setNewAdded(newAdded+1)}} />
+        //     </>
             
     
-            :
+        //     :
     
-            <div className="text-center font-semibold bg-lime-200 rounded-md p-2" onClick={() => {
-              signInWithPopup(auth, provider);
-            }}>Sign In</div>
-          }
+        //     <p className="text-black text-center">Loading...</p>
+        //   }
+        // </>
+
+        <>
+          {plantsData.map((plantData, i) => {
+            return <Card plantData={plantData} canSwap={false} intermediary={() => {setNewAdded(newAdded+1)}} key={i} />
+          })}
+          <AddCard userObj={user} intermediary={() => {setNewAdded(newAdded+1)}} />
         </>
 
         :
 
-        <p className="text-black text-center">Loading...</p>
+        <div className="hover:cursor-pointer text-center font-semibold bg-lime-200 rounded-md p-2" onClick={() => {
+          signInWithPopup(auth, provider);
+        }}>Sign In</div>
+
       }
     </>
   )
