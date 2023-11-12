@@ -17,7 +17,7 @@ const OtherPlants = () => {
   useEffect(() => {
     const plantsRef = ref(db, "/");
     onValue(plantsRef, (snapshot) => {
-      let out = snapshot.val();
+      let out = Object.values(snapshot.val());
       out.sort((a,b) => parseInt(b.height) - parseInt(a.height));
       setPlantsData(out);
     });
