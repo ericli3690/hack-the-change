@@ -5,7 +5,7 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-output = "6"
+output = "8"
 counter = 0
 
 @app.route('/')
