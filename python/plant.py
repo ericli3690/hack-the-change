@@ -1,8 +1,10 @@
 import cv2
 import imutils.contours
 import argparse
+from matplotlib import pyplot as plt
+import numpy
 
-image = img = cv2.imread("plants.jpg")
+image = img = cv2.imread("img.jpg")
 
 # Get our options
 parser = argparse.ArgumentParser(description='Object height measurement')
@@ -16,6 +18,11 @@ greyscale = cv2.GaussianBlur(greyscale, (7, 7), 0)
 
 # Detect edges and close gaps
 canny_output = cv2.Canny(greyscale, 50, 100)
+
+plt.subplot(122),plt.imshow(canny_output,cmap = 'gray')
+plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
+plt.show()
+
 canny_output = cv2.dilate(canny_output, None, iterations=1)
 canny_output = cv2.erode(canny_output, None, iterations=1)
 
@@ -59,6 +66,6 @@ plantHeight = (lowestRect - highestRect) * mmPerPixel
 print("Plant height is {0:.0f}mm".format(plantHeight))
 
 # Resize and display the image (press key to exit)
-resized_image = cv2.resize(output_image, (1280, 720))
+resized_image = output_image
 cv2.imshow("Image", resized_image)
 cv2.waitKey(0)
