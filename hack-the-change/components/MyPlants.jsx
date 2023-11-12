@@ -36,7 +36,6 @@ const MyPlants = () => {
       Object.values(snapshot.val()).forEach(v => {
         (v.owner == user.displayName) && out.push(v);
       })
-      console.log("fired")
       setIntermediatePlantsData(out)
     })
   }, [user, newAdded]);
@@ -51,7 +50,6 @@ const MyPlants = () => {
 
   useEffect(() => {
     if (!intermediatePlantsData.length) return;
-    console.log("acknowledged")
     getData("http://localhost:8000", (_height) => {
       let checkout = intermediatePlantsData;
       checkout.forEach((plantData, i) => {
