@@ -11,7 +11,7 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-import { getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, onValue, ref, set } from "firebase/database";
 import AddCard from './AddCard';
 const db = getDatabase(app);
 
@@ -36,13 +36,22 @@ const MyPlants = () => {
       Object.values(snapshot.val()).forEach(v => {
         (v.owner == user.displayName) && out.push(v);
       })
+      console.log("fired")
       setIntermediatePlantsData(out)
     })
   }, [user, newAdded]);
 
+  const pushBack = (specificPlantsData) => {
+    specificPlantsData.forEach((plantData) => {
+      set(ref(db, plantData.iid.toString()), {
+        ...plantData
+      });
+    });
+  }
 
   useEffect(() => {
-    if (!intermediatePlantsData) return;
+    if (!intermediatePlantsData.length) return;
+    console.log("acknowledged")
     getData("http://localhost:8000", (_height) => {
       let checkout = intermediatePlantsData;
       checkout.forEach((plantData, i) => {
@@ -50,9 +59,17 @@ const MyPlants = () => {
       })
       // age: (Math.round((new Date() - new Date(plantData.date))/(24 * 60 * 60 * 1000))).toString()
       setPlantsData(checkout);
+      setTimeout(() => {
+        pushBack(checkout);
+      }, 2000);
+      // pushBack(checkout);
       console.log(checkout); // TODO: write it back
     });
   }, [intermediatePlantsData]);
+
+  useEffect(() => {
+
+  }, )
 
   const getData = (endpoint, callback) => {
     const request = new XMLHttpRequest();
