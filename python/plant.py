@@ -2,7 +2,7 @@ import cv2
 import imutils.contours
 import argparse
 
-image = img = cv2.imread("planter.jpg")
+image = img = cv2.imread("plants.jpg")
 
 # Get our options
 parser = argparse.ArgumentParser(description='Object height measurement')
@@ -59,6 +59,6 @@ plantHeight = (lowestRect - highestRect) * mmPerPixel
 print("Plant height is {0:.0f}mm".format(plantHeight))
 
 # Resize and display the image (press key to exit)
-#resized_image = output_image
-#cv2.imshow("Image", resized_image)
-#cv2.waitKey(0)
+resized_image = output_image
+cv2.imshow("Image", resized_image)
+cv2.waitKey(0)

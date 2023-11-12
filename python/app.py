@@ -9,7 +9,7 @@ import cv2
 import imutils.contours
 import argparse
 
-image = img = cv2.imread("planter.jpg")
+image = img = cv2.imread("plants.jpg")
 
 # Get our options
 parser = argparse.ArgumentParser(description='Object height measurement')
@@ -73,9 +73,7 @@ print("Plant height is {0:.0f}mm".format(plantHeight))
 @app.route('/')
 @cross_origin()
 def index():
-    global counter
-    counter += 1
-    return str(counter)
+    return str(plantHeight)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
