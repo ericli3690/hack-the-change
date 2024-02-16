@@ -1,3 +1,9 @@
+# USE THIS ONE
+# the final image used was final.jpg
+# to run this, cd into python, then run `python app.py -w 12`
+# where 12 is the width of the strip of tape
+# it then runs on localhost:8000 
+
 from flask import Flask
 from flask_cors import CORS, cross_origin
 
@@ -11,7 +17,7 @@ import cv2
 import imutils.contours
 import argparse
 
-image = img = cv2.imread("module.jpeg")
+image = img = cv2.imread("final.jpg")
 
 
 parse = argparse.ArgumentParser(description='height measurement')
